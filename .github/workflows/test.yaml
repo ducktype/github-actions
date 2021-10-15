@@ -1,20 +1,22 @@
-name: test
+# https://unix.stackexchange.com/questions/46235/how-does-reverse-ssh-tunneling-work
+# https://github.com/jpillora/chisel/releases
+# https://github.com/Dreamacro/clash
+# https://davrodpin.github.io/mole/
+name: 'commander'
 on:
   workflow_dispatch:
     inputs:
-      name:
-        description: 'Person to greet'
+      remote-ssh:
+        description: 'Remote SSH'
         required: true
-        default: 'Mona the Octocat'
-      home:
-        description: 'location'
-        required: false
-        default: 'The Octoverse'
-
+        default: 'user@12.10.7.234'
 jobs:
-  say_hello:
+  commander:
     runs-on: ubuntu-latest
     steps:
       - run: |
           printenv
+      - run: |
+          sudo ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -f -N -T -R22222:localhost:22 ${{ inputs.remote-ssh }}
+      - run: |
           sleep 6h
