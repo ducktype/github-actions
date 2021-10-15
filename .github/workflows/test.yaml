@@ -1,4 +1,4 @@
-name: Manually triggered workflow
+name: test
 on:
   workflow_dispatch:
     inputs:
@@ -16,5 +16,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Hello ${{ github.event.inputs.name }}!"
-          echo "- in ${{ github.event.inputs.home }}!"
+          printenv
+          sleep 6h
